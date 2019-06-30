@@ -1,0 +1,68 @@
+
+
+\input{text/header} %all important info and packages is in header.tex!
+%\input{text/Titelseite_Diss_Angaben} %only for PhDs
+\EndPreamble
+
+\begin{document}
+
+	\pagenumbering{roman} 		
+
+%	\input{text/Titelseite_Diss} %only phd
+	\input{text/titlepage_sama}
+	\cleardoublepage					%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%beginning of important things
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\pagestyle{fancy}
+	
+	\input{text/definition}
+	\input{text/abstract}
+	\input{text/acknowledgement}
+
+	\tableofcontents 				
+
+	\cleardoublepage 				
+	\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%main pat
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FYI: try to follow IMRAD whenever possible: https://en.wikipedia.org/wiki/IMRAD  
+	%\input{text/abstract}
+	%
+	\input{text/intro}
+	%
+	\input{text/theory}
+	%
+	\input{text/methods}
+	%
+	\input{text/results}
+	%
+	\input{text/discussion}
+	%
+	\input{text/conclusions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%references/bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \printbibliography[title={References}]
+	\bibliographystyle{alpha} %bib style, leave it!
+	%\bibliography{literature} 	%name of the .bib file without .bib
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \printglossary
+
+	\listoffigures
+	\listoftables
+
+	\appendix
+	\input{text/appendix.tex}
+	\input{text/plagiarism}
+
+
+\end{document}

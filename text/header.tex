@@ -1,0 +1,154 @@
+
+%****Header*****
+
+%%%in here are the most important definitions of this template
+%%%please only make changes if you are sure that you need them.
+%scrreport is part of KOMA script: https://www.ctan.org/pkg/koma-script?lang=en
+%if something is not to your liking or you want a new feature, make sure that 
+% 1) KOMA doesnt already provide the feature
+% 2) the package is KOMA compatible!
+
+\documentclass[
+fleqn,											
+fontsize=11pt,
+paper=a4,
+twoside,open=right,					%use this option for printing on both sides!
+bibliography=totoc,listof=totoc,BCOR=25mm,
+%ngerman  %use only if you write in German!
+english,
+DIV = 12 %decides how full the pages are
+]{scrreprt}
+%% A. Ritter, 12.1.2017 -> changed BCOR from 5 to 25 and DIV from 11 to 12 to make it more appealing when printed
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% text and language packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% it's a good idea to know what each of the following packages does
+%%% if you dont know -> GOOGLE it, we selected only helpful ones.
+
+\usepackage[utf8]{inputenc} %encoding of .tex files -> please use utf8 exclusively!
+\usepackage[T1]{fontenc} %encoding of the fonts, T1 should work best
+\usepackage[english]{babel} %use english hyphenation and such
+\usepackage{here} 
+
+\usepackage{ifpdf} %necessary package to distinguish between pdfLatex and latex->ps compilations
+\usepackage{graphicx} %provides \includegraphics and such
+%%the following couple of packages introduce capability to deal with .eps files
+\usepackage{epstopdf} %adds .eps capability to \includegraphics but doesn't do anything with psfrag
+\ifpdf %set compression of bitmap files which are saved as .eps so that they don't become worse when making a .pdf
+\epstopdfsetup{update,suffix=-generated2}
+\epstopdfDeclareGraphicsRule{.eps}{pdf}{.pdf}{epstopdf --gsopt="-dPDFSETTINGS=/prepress -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -sColorImageFilter=FlateEncode -sGrayImageFilter=FlateEncode -sCompressPages=false -dPreserveHalftoneInfo=true" #1 --outfile=\OutputFile}
+\fi
+\usepackage[crop=pdfcrop,mode=nonstop]{pstool} %adds psfrag capability so that .eps figures can
+%%
+
+\usepackage{rotating} %rotate figures and tables
+\usepackage{frame} %put frames around things
+\usepackage{amstext,amssymb,amsbsy,amsmath} %add a lot of math capability
+\usepackage{adjustbox} %scales floats such as tables and figures to fit on certain size, i.a. pagewidth
+\usepackage{subcaption} %provides elegant method for adding subfigures, subplots, subcaptions 
+\usepackage{textcomp} %provides degree symbols and some other useful things, can be achieved with siunitx too
+
+%%you can draw electric circuit diagrams
+%%as well as plot data pretty with tikz (circuittikz for the former, pgfplots for the latter)
+%
+\usepackage[european]{circuitikz} %draw electric diagrams
+%\usepackage{0_packages/circuitikz/tex/circuitikz} %draw electric diagrams
+\usepackage{tikz} %draw a lot of stuff
+\usepackage{tikzscale}
+\usetikzlibrary{shapes,arrows}
+\usepackage{xstring}
+\usepackage{pgfplots} %plot symbolic functions and data directly in latex via tikz
+\usepgfplotslibrary{colorbrewer} %have distinct and pleasing colors in pgfplots
+\usetikzlibrary{colorbrewer}
+\pgfplotsset{compat=newest}
+\newcommand*{\equal}{=}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usepackage{cancel}
+
+\usepackage{siunitx} %elegantly handle numbers and their units
+
+\usepackage{pdfpages} %if you need to include entire pages as pdf (mostly for the appendix)
+
+\usepackage{enumitem} %more enumerable environments
+\usepackage[hidelinks]{hyperref} %makes all kinds of links (references, table of contents, etc) clickable
+\usepackage[section]{placeins} %assures that all floats are in the section they should be in before starting a new one
+
+%%provides you with \todo{} and \missingfigure and such: 
+%%http://mirror.switch.ch/ftp/mirror/tex/macros/latex/contrib/todonotes/todonotes.pdf
+\usepackage{todonotes} % does the todo list. should be loaded after other packages. 
+
+%all of the numbers and units are done with siunitx, please check out
+%http://www.pirbot.com/mirrors/ctan/macros/latex/contrib/siunitx/siunitx.pdf
+\usepackage{siunitx}
+
+%\usepackage{cite} %does references and bibliography
+\usepackage[backend=biber, style=ieee, sorting=none]{biblatex}
+\addbibresource{literature.bib}
+
+\pagestyle{headings} 				%schaltet die Kopfzeile ein. Die Option {headings} erzeugt die Nummer und den Namen des Kapitels
+
+\setcounter{tocdepth}{1} %make table of content 1-deep (i.e. chapters + sections but not subsections)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Fuss- und Kopfzeilendefinition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0.5pt}
+
+%%%% double sided layout: use this
+\fancyhead[EL, OR]{ \thepage}
+\fancyhead[EC]{\textsl{\leftmark}}
+\fancyhead[OC]{\textsl{\rightmark}}
+
+%%%% single sided layout: use this
+%\fancyhead[R]{ \thepage}
+%\fancyhead[C]{\textsl{\leftmark}}
+
+\pagestyle{fancy}
+
+\renewcommand{\chaptermark}[1]{%
+\markboth{\thechapter\ #1}{}}
+
+\renewcommand{\sectionmark}[1]{%
+\markright{\thesection\ #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Glossar und Abkürzungen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[acronym, toc]{glossaries}
+\makeglossaries
+\input{text/glossary.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Aufzählung von Parametern / Variabeln
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newenvironment{conditions}
+%  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+%  {\end{tabular}\par\vspace{\belowdisplayskip}}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%zentrierte Gleichungen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[fleqn]{amsmath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% um Tabelle in Textbreite zu behalten. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% To have landscape mode (for big tables and figures)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lscape}
+
+
+\usepackage{caption}
+\usepackage{subcaption}
